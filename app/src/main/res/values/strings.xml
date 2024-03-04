@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="search">Search for tasks&#8230;</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_name">Nhập tên</string>
+    <string name="my_list">My List</string>
+</resources>
