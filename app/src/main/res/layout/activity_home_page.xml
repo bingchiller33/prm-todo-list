@@ -1,103 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingStart="18dp"
-    android:paddingEnd="18dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".handler.HomePageActivity"
-    android:background="#000000">
+    android:background="#000000"
+    android:paddingStart="18dp"
+    android:paddingEnd="18dp"
+    android:id="@+id/homepage"
+    tools:context=".handler.HomePageActivity">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hp_search_header_area"
         android:layout_width="match_parent"
         android:layout_height="74dp">
+
         <EditText
-            app:layout_constraintTop_toTopOf="parent"
-            android:hint="@string/search"
-            android:autofillHints=""
+            android:id="@+id/hp_searching_task"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
             android:layout_marginTop="12dp"
+            android:autofillHints=""
+            android:background="#000"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:hint="@string/search"
             android:paddingStart="32dp"
             android:paddingEnd="130dp"
             android:paddingBottom="2dp"
-            android:textSize="18sp"
-            android:focusableInTouchMode="true"
-            android:focusable="false"
+            android:singleLine="true"
             android:textColor="@color/light"
             android:textColorHint="@color/light"
-            android:id="@+id/hp_searching_task"
-            android:layout_width="match_parent"
-            android:singleLine="true"
-            android:background="#000"
-            android:layout_height="38dp"/>
+            android:textSize="18sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/hp_icon_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="8dp"
             android:paddingEnd="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:drawableStartCompat="@drawable/baseline_search_24"
             app:layout_constraintLeft_toLeftOf="@+id/hp_searching_task"
             app:layout_constraintTop_toTopOf="@+id/hp_searching_task" />
+
         <TextView
             android:id="@+id/hp_icon_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="100dp"
             android:paddingStart="16dp"
             android:paddingEnd="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:drawableStartCompat="@drawable/baseline_cancel_24"
             app:layout_constraintEnd_toEndOf="@+id/hp_searching_task"
             app:layout_constraintTop_toTopOf="@+id/hp_searching_task" />
+
         <TextView
             android:id="@+id/hp_cancel"
-            app:layout_constraintEnd_toEndOf="@+id/hp_searching_task"
-            app:layout_constraintTop_toTopOf="@+id/hp_searching_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:paddingStart="0dp"
             android:paddingEnd="8dp"
-            android:textSize="18sp"
+            android:text="@string/cancel"
             android:textColor="@color/info"
-            android:text="@string/cancel"/>
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="@+id/hp_searching_task"
+            app:layout_constraintTop_toTopOf="@+id/hp_searching_task" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/hp_tv_mylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/hp_search_header_area"
         android:text="@string/my_list"
         android:textColor="@color/info"
-        android:textSize="22sp"
-        android:layout_below="@+id/hp_search_header_area"
+        android:textSize="24sp"
         android:textStyle="bold" />
-    <TextView
+
+
+    <Button
+        android:id="@+id/add_new_group_task_item"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="18dp"
+        android:layout_height="36dp"
+        android:layout_gravity="bottom"
+        android:paddingTop="-6dp"
+        android:layout_marginTop="0dp"
         android:layout_alignTop="@+id/hp_tv_mylist"
         android:layout_toEndOf="@+id/hp_tv_mylist"
-        app:drawableStartCompat="@drawable/baseline_lock_24"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <GridView
+        android:id="@+id/grid_view_group_task_list"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_below="@+id/hp_tv_mylist"
-        android:id="@+id/recycle_view_group_task_list" />
+        android:layout_marginTop="15dp"
+        android:horizontalSpacing="2dp"
+        android:numColumns="2"
+        android:verticalSpacing="2dp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/add_new_group_task_item"-->
-<!--            android:layout_width="205dp"-->
-<!--            android:layout_height="100dp"-->
-<!--            android:layout_marginTop="6dp"-->
-<!--            android:background="@drawable/radius_background"-->
-<!--            android:gravity="center"-->
-<!--            android:text="+"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:textSize="20sp" />-->
     <LinearLayout
+        android:id="@+id/hp_add_new_group_popup"
         android:layout_width="240dp"
         android:layout_height="172dp"
         android:layout_centerInParent="true"
@@ -111,29 +120,25 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="4dp"
+            android:background="@android:color/transparent"
             android:hint="@string/enter_name"
             android:maxLength="120"
-            android:background="@android:color/transparent"
-            android:textColorHint="@color/white"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
             android:textColor="@color/white"
+            android:textColorHint="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:gravity="top" />
         <Button
             android:id="@+id/hp_btn_add"
-            android:background="@android:color/transparent"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="42dp"
             android:layout_gravity="bottom"
             android:layout_marginStart="4dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="4dp"
-            android:layout_marginBottom="14dp"
+            android:background="@android:color/transparent"
             android:gravity="center"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"

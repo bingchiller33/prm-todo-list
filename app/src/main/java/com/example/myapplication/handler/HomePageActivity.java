@@ -1,20 +1,21 @@
 package com.example.myapplication.handler;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.GroupListAdapter;
@@ -28,9 +29,12 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     private List<Group> groupList = new ArrayList<>();
+    private RelativeLayout homepage;
     private EditText edit_search, edit_newGroup;
     private TextView tv_icon_delete, tv_cancel;
-    private Button btn_addNew;
+    private Button btn_addNew, btn_open_popup_add_new;
+    private LinearLayout add_new_group_popup;
+    GridView gridView;
     private GroupRepository groupRepository = null;
     private GroupListAdapter groupListAdapter = null;
 
@@ -38,37 +42,43 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        RecyclerView recyclerView = findViewById(R.id.recycle_view_group_task_list);
+        gridView = findViewById(R.id.grid_view_group_task_list);
         edit_search = findViewById(R.id.hp_searching_task);
+        add_new_group_popup = findViewById(R.id.hp_add_new_group_popup);
         tv_icon_delete = findViewById(R.id.hp_icon_delete);
+        btn_open_popup_add_new = findViewById(R.id.add_new_group_task_item);
         tv_cancel = findViewById(R.id.hp_cancel);
         edit_newGroup = findViewById(R.id.hp_ed_new_group);
         btn_addNew = findViewById(R.id.hp_btn_add);
-        groupRepository = new GroupRepository(this);
+        homepage = findViewById(R.id.homepage);
 
+        groupRepository = new GroupRepository(this);
         tv_icon_delete.setVisibility(View.GONE);
         tv_cancel.setVisibility(View.GONE);
+        add_new_group_popup.setVisibility(View.GONE);
 
         groupListAdapter = new GroupListAdapter(groupList, this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(groupListAdapter);
-        registerForContextMenu(recyclerView);
+        gridView.setAdapter(groupListAdapter);
+        registerForContextMenu(gridView);
         addNew(btn_addNew, edit_newGroup);
         groupRepository = new GroupRepository(this);
         loadAllProducts();
         animation();
+        addNewPopup();
+        closePopup();
     }
+
     private void loadAllProducts() {
         List<GroupEntity> groups = groupRepository.getAllProduct(1);
-        Log.d("TAG", "loadAllProducts: Number of products retrieved: " + groups.size());
         convertGroupEntity(groups);
         groupListAdapter.notifyDataSetChanged();
     }
+
     private void convertGroupEntity(List<GroupEntity> groupEntities) {
         if (groupEntities == null) {
             return;
         }
-//        groupList.clear();
+        groupList.clear();
         for (GroupEntity productEntity : groupEntities) {
             Group group = new Group();
             group.setId(productEntity.getId());
@@ -84,8 +94,8 @@ public class HomePageActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = edt.getText().toString();
-                if(name.length() == 0) return;
+                String name = edt.getText().toString().trim();
+                if (name.length() == 0) return;
                 Date currentTime = new Date();
                 GroupEntity groupEntity = new GroupEntity();
                 groupEntity.setName(name);
@@ -94,9 +104,13 @@ public class HomePageActivity extends AppCompatActivity {
                 groupEntity.setCreatedAt(currentTime);
                 groupEntity.setUpdatedAt(currentTime);
                 groupRepository.createGroup(groupEntity);
+                add_new_group_popup.setVisibility(View.GONE);
+                loadAllProducts();
+                edt.setText("");
             }
         });
     }
+
     private void animation() {
         edit_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -162,4 +176,43 @@ public class HomePageActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void addNewPopup() {
+        btn_open_popup_add_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                add_new_group_popup.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void closePopup() {
+        homepage.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    add_new_group_popup.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    add_new_group_popup.setVisibility(View.GONE);
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
 }
