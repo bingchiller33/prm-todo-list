@@ -1,14 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragment.MyDayDiaglogFragment">
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="25dp"
+    android:paddingBottom="10dp">
 
-    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/dialog_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_input_background"
+            android:hint="@string/i_want_to"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="2"
+            android:padding="15dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="60dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/secondary"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:drawableStart="@drawable/ic_note_group" />
+
+
+    </RelativeLayout>
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:drawableStart="@drawable/ic_circle_up" />
 
-</FrameLayout>
+
+</LinearLayout>

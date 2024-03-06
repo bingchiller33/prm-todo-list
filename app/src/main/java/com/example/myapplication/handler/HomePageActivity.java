@@ -140,6 +140,7 @@ public class HomePageActivity extends AppCompatActivity {
                 edit_search.setText("");
             }
         });
+
         edit_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

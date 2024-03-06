@@ -6,4 +6,11 @@
     <color name="secondary">#cccccccc</color>
     <color name="navigationBarColor">#FFF</color>
     <color name="info">#0068ff</color>
+
+    <color name="colorPrimary">#FFFFFF</color> <!-- White -->
+    <color name="colorPrimaryDark">#CCCCCC</color> <!-- Light Gray -->
+    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="colorAccent">#FF4081</color> <!-- Bright Pink -->
+    <color name="backgroundColor">#000000</color> <!-- Black -->
+    <color name="textColor">#FFFFFF</color> <!-- White -->
 </resources>

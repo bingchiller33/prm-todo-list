@@ -6,9 +6,16 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
     <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
-    <style name="appThem" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/light</item>
+    <style name="appTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorSecondary">@color/secondary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+    </style>
+    <style name="CustomCheckbox02" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_selector</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>
