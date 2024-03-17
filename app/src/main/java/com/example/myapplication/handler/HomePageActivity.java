@@ -1,11 +1,12 @@
 package com.example.myapplication.handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
     private List<Group> groupList = new ArrayList<>();
-    private RelativeLayout homepage;
+    private RelativeLayout homepage, hp_popup_container;
     private EditText edit_search, edit_newGroup;
     private TextView tv_icon_delete, tv_cancel;
     private Button btn_addNew, btn_open_popup_add_new;
@@ -37,6 +38,7 @@ public class HomePageActivity extends AppCompatActivity {
     GridView gridView;
     private GroupRepository groupRepository = null;
     private GroupListAdapter groupListAdapter = null;
+    private ConstraintLayout search_header_area = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +47,19 @@ public class HomePageActivity extends AppCompatActivity {
         gridView = findViewById(R.id.grid_view_group_task_list);
         edit_search = findViewById(R.id.hp_searching_task);
         add_new_group_popup = findViewById(R.id.hp_add_new_group_popup);
+        hp_popup_container= findViewById(R.id.hp_popup_container);
         tv_icon_delete = findViewById(R.id.hp_icon_delete);
         btn_open_popup_add_new = findViewById(R.id.add_new_group_task_item);
         tv_cancel = findViewById(R.id.hp_cancel);
         edit_newGroup = findViewById(R.id.hp_ed_new_group);
         btn_addNew = findViewById(R.id.hp_btn_add);
         homepage = findViewById(R.id.homepage);
+        search_header_area = findViewById(R.id.hp_search_header_area);
 
         groupRepository = new GroupRepository(this);
         tv_icon_delete.setVisibility(View.GONE);
         tv_cancel.setVisibility(View.GONE);
-        add_new_group_popup.setVisibility(View.GONE);
+        hp_popup_container.setVisibility(View.GONE);
 
         groupListAdapter = new GroupListAdapter(groupList, this);
         gridView.setAdapter(groupListAdapter);
@@ -104,7 +108,7 @@ public class HomePageActivity extends AppCompatActivity {
                 groupEntity.setCreatedAt(currentTime);
                 groupEntity.setUpdatedAt(currentTime);
                 groupRepository.createGroup(groupEntity);
-                add_new_group_popup.setVisibility(View.GONE);
+                btn.setVisibility(View.GONE);
                 loadAllProducts();
                 edt.setText("");
             }
@@ -132,6 +136,7 @@ public class HomePageActivity extends AppCompatActivity {
                     tv_icon_delete.setVisibility(View.GONE);
                     tv_icon_delete.animate().alpha(0f).setDuration(400).start();
                 }
+                hp_popup_container.setVisibility(View.GONE);
             }
         });
         tv_icon_delete.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +160,7 @@ public class HomePageActivity extends AppCompatActivity {
                 );
                 animation.setDuration(1000); // Đặt thời gian di chuyển là 1 giây
                 tv_cancel.startAnimation(animation);
+                hp_popup_container.setVisibility(View.GONE);
             }
         });
         tv_cancel.setOnClickListener(new View.OnClickListener() {
@@ -181,7 +187,7 @@ public class HomePageActivity extends AppCompatActivity {
         btn_open_popup_add_new.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                add_new_group_popup.setVisibility(View.VISIBLE);
+                hp_popup_container.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -194,7 +200,7 @@ public class HomePageActivity extends AppCompatActivity {
                 int y = (int) event.getY();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    add_new_group_popup.setVisibility(View.GONE);
+                    hp_popup_container.setVisibility(View.GONE);
                     return true;
                 }
                 return false;
@@ -207,7 +213,7 @@ public class HomePageActivity extends AppCompatActivity {
                 int y = (int) event.getY();
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    add_new_group_popup.setVisibility(View.GONE);
+                    hp_popup_container.setVisibility(View.GONE);
                     return true;
                 }
                 return false;

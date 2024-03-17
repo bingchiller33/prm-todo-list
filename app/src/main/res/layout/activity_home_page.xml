@@ -2,17 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homepage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000"
-    android:paddingStart="18dp"
-    android:paddingEnd="18dp"
-    android:id="@+id/homepage"
     tools:context=".handler.HomePageActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/hp_search_header_area"
         android:layout_width="match_parent"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
         android:layout_height="74dp">
 
         <EditText
@@ -71,79 +71,97 @@
             app:layout_constraintTop_toTopOf="@+id/hp_searching_task" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/hp_tv_mylist"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:id="@+id/hp_layout_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hp_search_header_area"
-        android:text="@string/my_list"
-        android:textColor="@color/info"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_below="@+id/hp_search_header_area">
 
+        <TextView
+            android:id="@+id/hp_tv_mylist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/my_list"
+            android:textColor="@color/info"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/add_new_group_task_item"
-        android:layout_width="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_height="36dp"
-        android:layout_gravity="bottom"
-        android:paddingTop="-6dp"
-        android:layout_marginTop="0dp"
-        android:layout_alignTop="@+id/hp_tv_mylist"
-        android:layout_toEndOf="@+id/hp_tv_mylist"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/add_new_group_task_item"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_alignTop="@+id/hp_tv_mylist"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/hp_tv_mylist"
+            android:paddingTop="-6dp"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
     <GridView
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
         android:id="@+id/grid_view_group_task_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/hp_tv_mylist"
+        android:layout_below="@+id/hp_layout_title"
         android:layout_marginTop="15dp"
         android:horizontalSpacing="2dp"
         android:numColumns="2"
         android:verticalSpacing="2dp" />
 
-    <LinearLayout
-        android:id="@+id/hp_add_new_group_popup"
-        android:layout_width="240dp"
-        android:layout_height="172dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/radius_background"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/hp_popup_container"
+        android:background="@color/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/hp_ed_new_group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="4dp"
-            android:background="@android:color/transparent"
-            android:hint="@string/enter_name"
-            android:maxLength="120"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
-            android:textSize="16sp"
-            android:layout_weight="1"
-            android:gravity="top" />
-        <Button
-            android:id="@+id/hp_btn_add"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="4dp"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:text="Thêm"
-            android:textColor="@color/info"
-            android:textSize="14sp" />
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/hp_add_new_group_popup"
+            android:layout_width="240dp"
+            android:layout_height="172dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_new_group"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/hp_ed_new_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="@string/enter_name"
+                android:maxLength="120"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/hp_btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="4dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="Thêm"
+                android:textColor="@color/primary"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>
